@@ -47,6 +47,10 @@ namespace TestRibbonWorkbookTracking
             // Excel seems to get unhappy with some events during shutdown
             _app.WorkbookActivate -= Application_WorkbookActivate;
             _app.WorkbookBeforeClose -= Application_WorkbookBeforeClose;
+
+            // Try a bit harder to clean up before shutdows, to prevent crashes after Excel closes
+            _workbookInfo.Clear();
+            GC.Collect();
         }
 
         public void OnLoad(IRibbonUI ribbon)
@@ -74,6 +78,11 @@ namespace TestRibbonWorkbookTracking
 
         WorkbookInfo GetActiveInfo()
         {
+            if (_shuttingDown)
+            {
+                Debug.Print("GetActiveInfo while Shutting down !?!");
+                throw new InvalidOperationException("Shutting down");
+            }
             var wb = _app.ActiveWorkbook;
             if (wb == null)
                 return null;
