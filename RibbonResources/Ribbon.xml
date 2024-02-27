@@ -4,8 +4,8 @@
 		<tabs>
 			<tab id='tab1' label='TestRibbonWorkbookTracking'>
 				<group id='group1' label='My Group'>
-          <labelControl id ='label1' getLabel='GetActiveWorkbookLabel'/>
-          <labelControl id ='label2' getLabel='GetA1Label'/>
+          <editBox id='edit1' getText='GetWorkbookNote' onChange='SetWorkbookNote'  />
+          <checkBox id='check1' getPressed='GetWorkbookFlag' onAction='SetWorkbookFlag' />
 					<button id='button1' label='My Button' onAction='OnButtonPressed' image='Image1'/>
 				</group>
 			</tab>
